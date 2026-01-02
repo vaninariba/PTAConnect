@@ -36,6 +36,10 @@ final class EventService {
         ])
     }
 
+    func deleteEvent(eventId: String) async throws {
+        try await db.collection("events").document(eventId).delete()
+    }
+
     func fetchCurrentUserRole() async throws -> String {
         guard let uid = Auth.auth().currentUser?.uid else { return "parent" }
         let snap = try await db.collection("users").document(uid).getDocument()
